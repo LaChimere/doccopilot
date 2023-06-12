@@ -33,8 +33,8 @@ func NewClient(ctx context.Context) Client {
 	return client
 }
 
-func (c *Client) CreateCompletion(req openai.CompletionRequest) (string, error) {
-	resp, err := c.client.CreateCompletion(c.ctx, req)
+func (c *Client) CreateCompletion(req *openai.CompletionRequest) (string, error) {
+	resp, err := c.client.CreateCompletion(c.ctx, *req)
 	if err != nil {
 		log.Printf("c.CreateCompletion error: %v", err)
 		return "", err
