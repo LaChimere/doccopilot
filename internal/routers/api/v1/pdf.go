@@ -9,6 +9,7 @@ import (
 	error2 "github.com/LaChimere/doccopilot/pkg/error"
 
 	"github.com/gin-gonic/gin"
+	"github.com/sashabaranov/go-openai"
 )
 
 type Pdf struct{}
@@ -21,7 +22,7 @@ func (p Pdf) Summarize(c *gin.Context) {
 	client := client2.NewClient(c.Request.Context())
 	response := app.NewResponse(c)
 
-	param := client2.PdfCompletionRequest{}
+	param := openai.CompletionRequest{}
 	if err := c.ShouldBindJSON(&param); err != nil {
 		e := error2.InvalidParams.WithDetails(err.Error())
 		response.ToErrorResponse(e)

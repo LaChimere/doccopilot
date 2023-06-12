@@ -9,8 +9,17 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/LaChimere/doccopilot/global"
 	"github.com/LaChimere/doccopilot/internal/routers"
+	"github.com/sashabaranov/go-openai"
 )
+
+func init() {
+	global.API_KEY = os.Getenv("API_KEY")
+	global.API_TYPE = openai.APIType(os.Getenv("API_TYPE"))
+	global.API_VERSION = os.Getenv("API_VERSION")
+	global.API_ENDPOINT = os.Getenv("BASE_URL")
+}
 
 func main() {
 	router := routers.NewRouter()
