@@ -3,6 +3,7 @@ package client
 import (
 	"context"
 	"log"
+	"strings"
 
 	"github.com/LaChimere/doccopilot/global"
 
@@ -14,14 +15,15 @@ type Client struct {
 	client *openai.Client
 }
 
-func NewClient(ctx context.Context) Client {
-	client := Client{ctx: ctx}
+// NewClient creates a new OpenAI client according to the API type.
+func NewClient(ctx context.Context) *Client {
+	client := &Client{ctx: ctx}
 
-	if len(global.API_TYPE) == 0 || global.API_TYPE == openai.APITypeOpenAI {
+	if len(global.API_TYPE) == 0 || strings.EqualFold(global.API_TYPE, string(openai.APITypeOpenAI)) {
 		client.client = openai.NewClient(global.API_KEY)
 	}
 
-	if global.API_TYPE == openai.APITypeAzure {
+	if strings.EqualFold(global.API_TYPE, string(openai.APITypeAzure)) {
 		config := openai.DefaultAzureConfig(global.API_KEY, global.API_ENDPOINT)
 		if len(global.API_VERSION) > 0 {
 			config.APIVersion = global.API_VERSION
@@ -33,12 +35,13 @@ func NewClient(ctx context.Context) Client {
 	return client
 }
 
-func (c *Client) CreateCompletion(req *openai.CompletionRequest) (string, error) {
-	resp, err := c.client.CreateCompletion(c.ctx, *req)
+// CreateChatCompletion creates a chat completion and send the request to the OpenAI service.
+func (c *Client) CreateChatCompletion(req *openai.ChatCompletionRequest) (string, error) {
+	resp, err := c.client.CreateChatCompletion(c.ctx, *req)
 	if err != nil {
-		log.Printf("c.CreateCompletion error: %v", err)
+		log.Printf("c.CreateChatCompletion error: %v", err)
 		return "", err
 	}
 
-	return resp.Choices[0].Text, nil
+	return resp.Choices[0].Message.Content, nil
 }
