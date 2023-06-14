@@ -1,9 +1,9 @@
 package routers
 
 import (
-	"github.com/LaChimere/doccopilot/docs"
 	"net/http"
 
+	"github.com/LaChimere/doccopilot/docs"
 	v1 "github.com/LaChimere/doccopilot/internal/routers/api/v1"
 
 	"github.com/gin-gonic/gin"
