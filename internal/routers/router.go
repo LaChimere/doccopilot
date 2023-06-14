@@ -2,6 +2,7 @@ package routers
 
 import (
 	v1 "github.com/LaChimere/doccopilot/internal/routers/api/v1"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,7 +12,7 @@ func NewRouter() *gin.Engine {
 
 	// Service is alive
 	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",
 		})
 	})

@@ -11,6 +11,7 @@ import (
 
 	"github.com/LaChimere/doccopilot/global"
 	"github.com/LaChimere/doccopilot/internal/routers"
+
 	"github.com/sashabaranov/go-openai"
 )
 

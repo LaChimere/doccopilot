@@ -33,12 +33,12 @@ func NewClient(ctx context.Context) Client {
 	return client
 }
 
-func (c *Client) CreateCompletion(req *openai.CompletionRequest) (string, error) {
-	resp, err := c.client.CreateCompletion(c.ctx, *req)
+func (c *Client) CreateChatCompletion(req *openai.ChatCompletionRequest) (string, error) {
+	resp, err := c.client.CreateChatCompletion(c.ctx, *req)
 	if err != nil {
-		log.Printf("c.CreateCompletion error: %v", err)
+		log.Printf("c.CreateChatCompletion error: %v", err)
 		return "", err
 	}
 
-	return resp.Choices[0].Text, nil
+	return resp.Choices[0].Message.Content, nil
 }
