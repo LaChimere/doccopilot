@@ -1,0 +1,22 @@
+info:
+  contact: {}
+paths:
+  /pdf/summarize:
+    post:
+      description: Summarize PDF contents
+      parameters:
+      - description: The OpenAI chat completion request, see https://platform.openai.com/docs/api-reference/chat/create
+        in: body
+        name: request
+        required: true
+        schema:
+          additionalProperties: true
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: "{\"summary\": \"The\tsummary\tof\tthe\tcontent\"}"
+          schema:
+            type: string
+swagger: "2.0"

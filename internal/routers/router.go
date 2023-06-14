@@ -1,10 +1,14 @@
 package routers
 
 import (
-	v1 "github.com/LaChimere/doccopilot/internal/routers/api/v1"
+	"github.com/LaChimere/doccopilot/docs"
 	"net/http"
 
+	v1 "github.com/LaChimere/doccopilot/internal/routers/api/v1"
+
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func NewRouter() *gin.Engine {
@@ -16,6 +20,10 @@ func NewRouter() *gin.Engine {
 			"message": "pong",
 		})
 	})
+
+	// Swagger API docs
+	docs.SwaggerInfo.BasePath = "/api/v1"
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	apiV1 := router.Group("/api/v1")
 	apiV1.Use()

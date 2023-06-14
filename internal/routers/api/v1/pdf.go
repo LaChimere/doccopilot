@@ -18,6 +18,14 @@ func NewPdf() Pdf {
 	return Pdf{}
 }
 
+//	@title			Summarize PDF contents
+//	@version		v1
+//	@description	Summarize PDF contents
+//	@BasePath		/api/v1
+//	@Router			/pdf/summarize [post]
+//	@Produce		json
+//	@Param			request	body	map[string]any	true				"The OpenAI chat completion request, see https://platform.openai.com/docs/api-reference/chat/create"
+//	@Success		200		string	json			"{"summary": "The	summary	of	the	content"}"
 func (p Pdf) Summarize(c *gin.Context) {
 	client := client2.NewClient(c.Request.Context())
 	response := app.NewResponse(c)
